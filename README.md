@@ -7,3 +7,4 @@
 - This is XOR-ed with another cell from the LFSR (Red)
 - The results of the above steps for each LFSR are XOR-ed together and their value is the output at the current step (Light Blue)
 ![Alt text](trivium_structure.png)
+*S. Kaleyski, N. (2023) 'Trivium' [Lecture], INF143/a: "Anvendt kryptografi". UiB. 26. January.*
