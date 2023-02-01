@@ -69,7 +69,7 @@ fn lfsr_output(state: &Vec<u8>,feedbackline1: usize,and1: usize, and2: usize) ->
 ///
 /// * `state` - A mutable reference to a vector of unsigned 8-bit integers representing the current state of the LFSR.
 /// * `puttin` - The value to be inserted at the beginning of the state.
-/// * `feedbackline2` - The index of the state element that will be used for feedback.
+/// * `feedbackline2` - An index indicating the position of the second feedback line.
 ///
 /// # Returns
 ///
