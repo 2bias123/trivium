@@ -89,12 +89,54 @@ pub fn lfsr(clockings: u32, state93:&mut Vec<u8>, state84:&mut Vec<u8>, state111
         let mut new_state3 = lfsr_input(state111, lfsr_output3, 86);
 
         let output = lfsr_output1 ^ lfsr_output2 ^ lfsr_output3;
-        if clockings > 1152 {
+        // if clockings > 1152 {
             putout.insert(0,output);
-        }
+        
 
         lfsr(clockings-1, &mut new_state1, &mut new_state2, &mut new_state3,putout)
     } else {
         return putout.to_vec();
+    }
+}
+
+
+#[cfg(test)]
+mod tests{
+    use super::*;
+
+    #[test]
+    fn lfsr_output_test(){
+        let init_test_state1:Vec<u8> = vec![0,1,0,1,0,1,0];
+        let test_output1 = lfsr_output(&init_test_state1, 3, 5, 6);
+        assert_eq!(test_output1,1);
+
+        let init_test_state2:Vec<u8> = vec![1,1,1,1,1,1,1,1];
+        let test_output2 = lfsr_output(&init_test_state2, 1, 5, 6);
+        assert_eq!(test_output2,1);
+
+        let init_test_state3:Vec<u8> = vec![1,0,1,1,1,0,1,0,0];
+        let test_output3 = lfsr_output(&init_test_state3, 5, 6, 7);
+        assert_eq!(test_output3,0)
+    }
+
+    #[test]
+    fn lfsr_input_test(){
+        let mut test_state1 = vec![1;10];
+        let test_output = lfsr_input(&mut test_state1,1, 4);
+        //Tests that the length stays the same
+        assert_eq!(test_output.len(),10);
+        //Checks that the output is as expected
+        assert_eq!(test_output,vec![0,1,1,1,1,1,1,1,1,1])
+    }
+
+    #[test]
+    fn lfsr_test(){
+        let clockings = 5;
+        let mut state93 = vec![1;93];
+        let mut state84 = vec![0;84];
+        let mut state111 = vec![1;111];
+        let mut putout = vec![];
+        let outputs = lfsr(clockings, &mut state93, &mut state84, &mut state111, &mut putout);
+        assert_eq!(outputs, vec![0,0,0,0,0]);
     }
 }
